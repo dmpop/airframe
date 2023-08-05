@@ -29,19 +29,16 @@
             <div class="card w-100" style="text-align: left;">
 
                 <?php
-
                 if (isset($_POST["search"])) {
-
                     echo '<h3>' . $_POST["code"] . '</h1>';
-
                     $ch = fopen("aircraftDatabase.csv", "r");
                     $header_row = fgetcsv($ch);
-
                     while ($row = fgetcsv($ch)) {
                         if (in_array($_POST["code"], $row)) {
                             foreach ($row as $key => $value)
-                                if (empty($value) or $value == 'false')
+                                if (empty($value) or $value == 'false') {
                                     unset($row[$key]);
+                                }
                             echo '<div>ICAO24: <strong>' . $row[0] . '</strong></div>';
                             echo '<div>Registration: <strong>' . $row[1] . '</strong></div>';
                             echo '<div>Manufacturer (ICAO): <strong>' . $row[2] . '</strong></div>';

@@ -1,5 +1,6 @@
 <?php
-ini_set('max_execution_time', 180);
+ini_set('set_time_limit', 180);
+set_time_limit(120);
 if (!extension_loaded('curl')) {
       exit("<center><code style='color: red;'>php-curl library is not installed</code></center>");
 }
@@ -44,13 +45,16 @@ if (!extension_loaded('curl')) {
             <div class="card w-100">
                   <ul>
                         <li>
-                              Registration code looks like this: <strong>I-ADJO</strong>
+                              Registration code may look like this: <strong>I-ADJO</strong>
                         </li>
                         <li>
                               Search is case-sensitive and relatively slow.
                         </li>
                         <li>
-                              Data is sourced from <a href="https://opensky-network.org/aircraft-database/">The OpenSky Aircraft database</a>.
+                              Search supports exact matches only.
+                        </li>
+                        <li>
+                              Data is sourced from the <a href="https://opensky-network.org/aircraft-database/">OpenSky aircraft database</a>.
                         </li>
                         <li>
                               You can also search for ICAO24, manufacturer (ICAO), manufacturer name, model, typecode, serial number, and owner.
@@ -59,10 +63,8 @@ if (!extension_loaded('curl')) {
             </div>
             <div style="text-align: center;">
                   <?php
-
                   $aircraftDatabase = "aircraftDatabase.csv";
                   $url = "https://opensky-network.org/datasets/metadata/aircraftDatabase.csv";
-
                   $local_db_date = date("Y-m-d", filemtime($aircraftDatabase));
                   $h = get_headers($url, 1);
                   if ($h && (strpos($h[0], '200') !== FALSE)) {
