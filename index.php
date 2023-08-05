@@ -1,3 +1,10 @@
+<?php
+ini_set('max_execution_time', 180);
+if (!extension_loaded('curl')) {
+      exit("<center><code style='color: red;'>php-curl library is not installed</code></center>");
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <!-- Author: Dmitri Popov, dmpop@cameracode.coffee
@@ -27,13 +34,30 @@
                         <h1 style="display: inline; margin-top: 0em; vertical-align: middle;">Airframe</h1>
                   </div>
                   <div class="card w-100">
-
-                        <form method='POST' action='result.php'>
-                              <label for='weight'>Aircraft registration number:</label>
+                        <form autocomplete="off" method='POST' action='result.php'>
+                              <label for='weight'>Aircraft registration code:</label>
                               <input class="card w-50" type='text' name='code'>
                               <input class="btn primary" style='display: inline; margin-left: 0.5em; margin-right: 0.5em;' type='submit' name='search' value='Search'>
                         </form>
                   </div>
+            </div>
+            <div class="card w-100">
+                  <ul>
+                        <li>
+                              Registration code looks like this: <strong>I-ADJO</strong>
+                        </li>
+                        <li>
+                              Search is case-sensitive and relatively slow.
+                        </li>
+                        <li>
+                              Data is sourced from <a href="https://opensky-network.org/aircraft-database/">The OpenSky Aircraft database</a>.
+                        </li>
+                        <li>
+                              You can also search for ICAO24, manufacturer (ICAO), manufacturer name, model, typecode, serial number, and owner.
+                        </li>
+                  </ul>
+            </div>
+            <div style="text-align: center;">
                   <?php
 
                   $aircraftDatabase = "aircraftDatabase.csv";
@@ -54,7 +78,7 @@
                         file_put_contents($aircraftDatabase, $data);
                         echo "Database has been updated";
                   } else {
-                        echo "<div style='font-size: 85%;'><span style='margin-right: .3em;'>Last database update: </span>" . $local_db_date . "</div>";
+                        echo "<div style='font-size: 85%;'><span style='margin-right: .3em;'>Database updated: </span>" . $local_db_date . "</div>";
                         echo "<div style='font-size: 85%;'><a href='https://github.com/dmpop/airframe'>Source code</a></div>";
                   }
                   ?>
